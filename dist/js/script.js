@@ -176,6 +176,32 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 
   setClock('.timer', deadline);
+  const modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('.modal__close'),
+        modalBtns = document.querySelectorAll('[data-modal]');
+  modalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 });
 
 /***/ })
