@@ -489,10 +489,12 @@ a {
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transform: scale(0);
-  transition: opacity .3s; }
+  transition: opacity .6s; }
   .modal__dialog {
     max-width: 500px;
-    margin: 40px auto; }
+    margin: 40px auto;
+    transform: scale(0);
+    transition: transform .4s; }
   .modal__content {
     position: relative;
     width: 100%;
@@ -535,6 +537,7 @@ a {
     margin: 0 auto; }
 
 .is-open {
-  display: block;
   opacity: 1;
   transform: scale(1); }
+  .is-open .modal__dialog {
+    transform: scale(1); }
