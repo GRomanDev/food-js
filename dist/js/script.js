@@ -108,7 +108,8 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function showTabContent(i = 0) {
+  function showTabContent() {
+    let i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     tabsContent[i].classList.add('show', 'fade');
     tabsContent[i].classList.remove('hide');
     tabs[i].classList.add('tabheader__item_active');
@@ -215,12 +216,17 @@ window.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', showModalByScroll);
 
   class MenuCard {
-    constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+    constructor(src, alt, title, descr, price, parentSelector) {
       this.src = src;
       this.alt = alt;
       this.title = title;
       this.descr = descr;
       this.price = price;
+
+      for (var _len = arguments.length, classes = new Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
+        classes[_key - 6] = arguments[_key];
+      }
+
       this.classes = classes;
       this.parent = document.querySelector(parentSelector);
       this.transfer = 73.57;
