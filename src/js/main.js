@@ -328,13 +328,8 @@ window.addEventListener('DOMContentLoaded', function () {
   let slideIndex = 1,
     offset = 0;
 
-  if (slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-    current.textContent = `0${slideIndex}`;
-  } else {
-    total.textContent = slides.length;
-    current.textContent = slideIndex;
-  }
+  setFraction(current, slideIndex);
+  setFraction(total, slides.length);
 
   slidesField.style.display = 'flex';
   slidesField.style.width = 100 * slides.length + '%';
@@ -368,6 +363,19 @@ window.addEventListener('DOMContentLoaded', function () {
     return +str.replace(/\D/g, '');
   }
 
+  function setFraction(frac, content) {
+    if (slides.length < 10) {
+      frac.textContent = `0${content}`;
+    } else {
+      frac.textContent = content;
+    }
+  }
+
+  function setDotsStyle() {
+    dots.forEach(dot => dot.style.opacity = '.5');
+    dots[slideIndex - 1].style.opacity = '1';
+  }
+
   next.addEventListener('click', () => {
     if (offset == (deleteNotDigit(width) * (slides.length - 1))) {
       offset = 0;
@@ -383,14 +391,9 @@ window.addEventListener('DOMContentLoaded', function () {
       slideIndex++;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    setFraction(current, slideIndex);
 
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = '1';
+    setDotsStyle();
   });
 
   prev.addEventListener('click', () => {
@@ -408,14 +411,9 @@ window.addEventListener('DOMContentLoaded', function () {
       slideIndex--;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    setFraction(current, slideIndex);
 
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = '1';
+    setDotsStyle();
   });
 
   dots.forEach(dot => {
@@ -427,14 +425,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
       slidesField.style.transform = `translateX(-${offset}px)`;
 
-      if (slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-      } else {
-        current.textContent = slideIndex;
-      }
+      setFraction(current, slideIndex);
 
-      dots.forEach(dot => dot.style.opacity = '.5');
-      dots[slideIndex - 1].style.opacity = '1';
+      setDotsStyle();
     });
   });
 

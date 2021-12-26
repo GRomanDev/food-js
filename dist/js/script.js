@@ -385,15 +385,8 @@ window.addEventListener('DOMContentLoaded', function () {
         slidesField = document.querySelector('.offer__slider-inner');
   let slideIndex = 1,
       offset = 0;
-
-  if (slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-    current.textContent = `0${slideIndex}`;
-  } else {
-    total.textContent = slides.length;
-    current.textContent = slideIndex;
-  }
-
+  setFraction(current, slideIndex);
+  setFraction(total, slides.length);
   slidesField.style.display = 'flex';
   slidesField.style.width = 100 * slides.length + '%';
   slidesField.style.transition = '.5s all';
@@ -424,6 +417,19 @@ window.addEventListener('DOMContentLoaded', function () {
     return +str.replace(/\D/g, '');
   }
 
+  function setFraction(frac, content) {
+    if (slides.length < 10) {
+      frac.textContent = `0${content}`;
+    } else {
+      frac.textContent = content;
+    }
+  }
+
+  function setDotsStyle() {
+    dots.forEach(dot => dot.style.opacity = '.5');
+    dots[slideIndex - 1].style.opacity = '1';
+  }
+
   next.addEventListener('click', () => {
     if (offset == deleteNotDigit(width) * (slides.length - 1)) {
       offset = 0;
@@ -439,14 +445,8 @@ window.addEventListener('DOMContentLoaded', function () {
       slideIndex++;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
-
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = '1';
+    setFraction(current, slideIndex);
+    setDotsStyle();
   });
   prev.addEventListener('click', () => {
     if (offset == 0) {
@@ -463,14 +463,8 @@ window.addEventListener('DOMContentLoaded', function () {
       slideIndex--;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
-
-    dots.forEach(dot => dot.style.opacity = '.5');
-    dots[slideIndex - 1].style.opacity = '1';
+    setFraction(current, slideIndex);
+    setDotsStyle();
   });
   dots.forEach(dot => {
     dot.addEventListener('click', e => {
@@ -478,15 +472,8 @@ window.addEventListener('DOMContentLoaded', function () {
       slideIndex = slideTo;
       offset = deleteNotDigit(width) * (slideTo - 1);
       slidesField.style.transform = `translateX(-${offset}px)`;
-
-      if (slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-      } else {
-        current.textContent = slideIndex;
-      }
-
-      dots.forEach(dot => dot.style.opacity = '.5');
-      dots[slideIndex - 1].style.opacity = '1';
+      setFraction(current, slideIndex);
+      setDotsStyle();
     });
   }); // showSlides(slideIndex);
   // if (slides.length < 10) {
