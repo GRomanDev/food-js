@@ -306,7 +306,8 @@ a {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 30px; }
+    margin-top: 30px;
+    margin-right: 10px; }
     .calculating__subtitle:first-child {
       margin-top: 0; }
   .calculating #gender:after {
@@ -357,10 +358,10 @@ a {
     margin: 40px auto;
     background-color: rgba(0, 0, 0, 0.2); }
   .calculating__total {
-    width: 490px;
+    max-width: 660px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center; }
   .calculating__result {
     font-size: 18px;
