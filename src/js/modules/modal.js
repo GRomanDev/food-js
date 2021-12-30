@@ -6,7 +6,7 @@ function modal() {
   function openModal() {
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    // clearInterval(showModalInterval);
+    clearInterval(showModalInterval);
   }
 
   function closeModal() {
@@ -32,7 +32,7 @@ function modal() {
     }
   });
 
-  // const showModalInterval = setTimeout(openModal, 2000);
+  const showModalInterval = setTimeout(openModal, 40000);
 
   function showModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
@@ -43,4 +43,4 @@ function modal() {
   window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+export default modal;
