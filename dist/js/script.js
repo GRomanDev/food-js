@@ -111,12 +111,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () {
-  const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["openModal"])('.modal', modalTimerId), 5000);
+  const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["openModal"])('.modal', modalTimerId), 50000);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])('[data-modal]', '.modal', modalTimerId);
   Object(_modules_card__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  Object(_modules_form__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  Object(_modules_form__WEBPACK_IMPORTED_MODULE_4__["default"])('form', modalTimerId);
   Object(_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])();
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
@@ -357,8 +357,13 @@ function card() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function form() {
-  const forms = document.querySelectorAll('form');
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/modal */ "./src/js/modules/modal.js");
+
+
+
+function form(formSelector, modalTimerId) {
+  const forms = document.querySelectorAll(formSelector);
   const message = {
     loading: 'img/form/spinner.svg',
     success: 'Спасибо! Мы скоро с вами свяжемся',
@@ -367,17 +372,6 @@ function form() {
   forms.forEach(item => {
     bindPostData(item);
   });
-
-  const postData = async (url, data) => {
-    let res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: data
-    });
-    return await res.json();
-  };
 
   function bindPostData(form) {
     form.addEventListener('submit', e => {
@@ -391,7 +385,7 @@ function form() {
       form.insertAdjacentElement('afterend', statusMessage);
       const formData = new FormData(form);
       const json = JSON.stringify(Object.fromEntries(formData.entries()));
-      postData('http://localhost:3000/requests', json).then(data => {
+      Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["postData"])('http://localhost:3000/requests', json).then(data => {
         console.log(data);
         showThanksModal(message.success);
         setTimeout(() => {
@@ -408,7 +402,7 @@ function form() {
   function showThanksModal(message) {
     const prevModalDialog = document.querySelector('.modal__dialog');
     prevModalDialog.classList.add('hide');
-    openModal();
+    Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.modal', modalTimerId);
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
     thanksModal.innerHTML = `
@@ -423,7 +417,7 @@ function form() {
       thanksModal.remove();
       prevModalDialog.classList.add('.is-open');
       prevModalDialog.classList.remove('hide');
-      closeModal();
+      Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["closeModal"])('.modal');
     }, 4000);
   }
 }
@@ -751,6 +745,31 @@ function timer() {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (timer);
+
+/***/ }),
+
+/***/ "./src/js/services/services.js":
+/*!*************************************!*\
+  !*** ./src/js/services/services.js ***!
+  \*************************************/
+/*! exports provided: postData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+const postData = async (url, data) => {
+  let res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: data
+  });
+  return await res.json();
+};
+
+
 
 /***/ })
 

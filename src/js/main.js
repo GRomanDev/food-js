@@ -10,13 +10,13 @@
   } from './modules/modal';
 
   window.addEventListener('DOMContentLoaded', function () {
-    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 5000);
+    const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
 
     tabs();
     timer();
     modal('[data-modal]', '.modal', modalTimerId);
     card();
-    form();
+    form('form', modalTimerId);
     slider();
     calculator();
   });
