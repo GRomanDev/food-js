@@ -13,7 +13,7 @@
     const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
 
     tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
-    timer();
+    timer('.timer', '2022-01-01 00:00');
     modal('[data-modal]', '.modal', modalTimerId);
     card();
     form('form', modalTimerId);
