@@ -109,10 +109,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', function () {
+  const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["openModal"])('.modal', modalTimerId), 5000);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])('[data-modal]', '.modal', modalTimerId);
   Object(_modules_card__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_4__["default"])();
   Object(_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])();
@@ -434,46 +436,49 @@ function form() {
 /*!*********************************!*\
   !*** ./src/js/modules/modal.js ***!
   \*********************************/
-/*! exports provided: default */
+/*! exports provided: default, closeModal, openModal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function modal() {
-  const modal = document.querySelector('.modal'),
-        modalCloseBtn = document.querySelector('.modal__close'),
-        modalBtns = document.querySelectorAll('[data-modal]');
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModal", function() { return openModal; });
+function openModal(modalSelector, modalTimerId) {
+  const modal = document.querySelector(modalSelector);
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
 
-  function openModal() {
-    modal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    clearInterval(showModalInterval);
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
   }
+}
 
-  function closeModal() {
-    modal.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
+function closeModal(modalSelector) {
+  const modal = document.querySelector(modalSelector);
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
 
-  modalBtns.forEach(btn => {
-    btn.addEventListener('click', openModal);
+function modal(triggerSelector, modalSelector, modalTimerId) {
+  const modal = document.querySelector(modalSelector),
+        modalTriggers = document.querySelectorAll(triggerSelector);
+  modalTriggers.forEach(btn => {
+    btn.addEventListener('click', () => openModal(modalSelector, modalTimerId));
   });
-  modalCloseBtn.addEventListener('click', closeModal);
   document.addEventListener('keydown', e => {
     if (e.code === 'Escape' && modal.classList.contains('is-open')) {
-      closeModal();
+      closeModal(modalSelector);
     }
   });
   modal.addEventListener('click', e => {
-    if (e.target === modal) {
-      closeModal();
+    if (e.target === modal || e.target.classList.contains('modal__close')) {
+      closeModal(modalSelector);
     }
   });
-  const showModalInterval = setTimeout(openModal, 40000);
 
   function showModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-      openModal();
+      openModal(modalSelector, modalTimerId);
       window.removeEventListener('scroll', showModalByScroll);
     }
   }
@@ -482,6 +487,8 @@ function modal() {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);
+
+
 
 /***/ }),
 
