@@ -117,7 +117,16 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])('[data-modal]', '.modal', modalTimerId);
   Object(_modules_card__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_4__["default"])('form', modalTimerId);
-  Object(_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  Object(_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])({
+    container: '.offer__slider',
+    slide: '.offer__slide',
+    prevArrow: '.offer__slider-prev',
+    nextArrow: '.offer__slider-next',
+    totalCounter: '#total',
+    curentCounter: '#current',
+    wrapper: '.offer__slider-wrapper',
+    field: '.offer__slider-inner'
+  });
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
@@ -488,16 +497,26 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function slider() {
-  const slides = document.querySelectorAll('.offer__slide'),
-        slider = document.querySelector('.offer__slider'),
-        prev = document.querySelector('.offer__slider-prev'),
-        next = document.querySelector('.offer__slider-next'),
-        total = document.querySelector('#total'),
-        current = document.querySelector('#current'),
-        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+function slider(_ref) {
+  let {
+    container,
+    slide,
+    prevArrow,
+    nextArrow,
+    totalCounter,
+    curentCounter,
+    wrapper,
+    field
+  } = _ref;
+  const slides = document.querySelectorAll(slide),
+        slider = document.querySelector(container),
+        prev = document.querySelector(prevArrow),
+        next = document.querySelector(nextArrow),
+        total = document.querySelector(totalCounter),
+        current = document.querySelector(curentCounter),
+        slidesWrapper = document.querySelector(wrapper),
         width = window.getComputedStyle(slidesWrapper).width,
-        slidesField = document.querySelector('.offer__slider-inner');
+        slidesField = document.querySelector(field);
   let slideIndex = 1,
       offset = 0;
   setFraction(current, slideIndex);

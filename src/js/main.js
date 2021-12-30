@@ -17,6 +17,15 @@
     modal('[data-modal]', '.modal', modalTimerId);
     card();
     form('form', modalTimerId);
-    slider();
+    slider({
+      container: '.offer__slider',
+      slide: '.offer__slide',
+      prevArrow: '.offer__slider-prev',
+      nextArrow: '.offer__slider-next',
+      totalCounter: '#total',
+      curentCounter: '#current',
+      wrapper: '.offer__slider-wrapper',
+      field: '.offer__slider-inner'
+    });
     calculator();
   });
