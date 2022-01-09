@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', function () {
   const modalTimerId = setTimeout(() => Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["openModal"])('.modal', modalTimerId), 50000);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
-  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_1__["default"])('.timer', '2022-01-01 00:00');
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_1__["default"])('.timer', '2022-01-21 00:00');
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])('[data-modal]', '.modal', modalTimerId);
   Object(_modules_card__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_4__["default"])('form', modalTimerId);
@@ -731,10 +731,10 @@ function timer(id, deadline) {
 
   function setClock(selector, endtime) {
     const timer = document.querySelector(selector),
-          days = document.querySelector('#days'),
-          hours = document.querySelector('#hours'),
-          minutes = document.querySelector('#minutes'),
-          seconds = document.querySelector('#seconds'),
+          days = timer.querySelector('#days'),
+          hours = timer.querySelector('#hours'),
+          minutes = timer.querySelector('#minutes'),
+          seconds = timer.querySelector('#seconds'),
           timeInterval = setInterval(updateClock, 1000);
     updateClock();
 
